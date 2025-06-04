@@ -1,6 +1,6 @@
 # smallc
 
-small c,modified then could compiled by morden gcc
+small-c v1.1 compiler  by Ron Cain    modified then could compiled by morden gcc
 
 i have tested,and worked
 
