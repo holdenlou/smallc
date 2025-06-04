@@ -480,7 +480,7 @@ declloc(typ)            /* typ is cchar or cint */
                         /* change machine stack */
                         sp=modstk(sp-k);
                         addloc(sname,j,typ,sp);
-                        printf("addloc %s,%d\n",sname,sp);
+                        /* printf("addloc %s,%d\n",sname,sp); */
                         break;
                         }
                 if (match(",")==0) return;
