@@ -8,7 +8,7 @@ type this:
 
 make test
 
-then input test1.c
+then input "r" in gdb;then input test1.c
 
 you could see:
 
