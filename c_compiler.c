@@ -1266,7 +1266,7 @@ heir1(lval)
                 {if(k==0){needlval();return 0;}
                 if (lval[1])push();
                 if(heir1(lval2))rvalue(lval2);
-                printf("lval[0] %d,lval[1] %d\n",lval[0],lval[1]);
+                if(0)printf("lval[0] %d,lval[1] %d\n",lval[0],lval[1]);
                 store(lval);
                 return 0;
                 }
@@ -1703,7 +1703,7 @@ primary(lval)
         if(symname(sname))
                 {if(ptr=findloc(sname))
                         {
-                                printf("get sname %s,ptr[type] %d,ptr[ident] %d\n",sname,ptr[type],ptr[ident]);
+                                if(0)printf("get sname %s,ptr[type] %d,ptr[ident] %d\n",sname,ptr[type],ptr[ident]);
                         getloc(ptr);
                         lval[0]=ptr;
                         lval[1]=ptr[type];
