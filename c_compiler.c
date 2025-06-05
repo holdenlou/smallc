@@ -480,7 +480,7 @@ declloc(typ)            /* typ is cchar or cint */
                         /* change machine stack */
                         sp=modstk(sp-k);
                         addloc(sname,j,typ,sp);
-                        /* printf("addloc %s,%d\n",sname,sp); */
+                        printf("/* addloc sname %s,sp %d,typ %d */\n",sname,sp,typ);
                         break;
                         }
                 if (match(",")==0) return;
@@ -1266,6 +1266,7 @@ heir1(lval)
                 {if(k==0){needlval();return 0;}
                 if (lval[1])push();
                 if(heir1(lval2))rvalue(lval2);
+                printf("lval[0] %d,lval[1] %d\n",lval[0],lval[1]);
                 store(lval);
                 return 0;
                 }
@@ -1701,7 +1702,9 @@ primary(lval)
                 }
         if(symname(sname))
                 {if(ptr=findloc(sname))
-                        {getloc(ptr);
+                        {
+                                printf("get sname %s,ptr[type] %d,ptr[ident] %d\n",sname,ptr[type],ptr[ident]);
+                        getloc(ptr);
                         lval[0]=ptr;
                         lval[1]=ptr[type];
                         if(ptr[ident]==pointer)lval[1]=cint;
@@ -1734,13 +1737,13 @@ primary(lval)
 }
 
 store(lval)
-        int *lval;
+        PTR *lval;
 {
         if (lval[1]==0)putmem(lval[0]);
         else putstk(lval[1]);
 }
 rvalue(lval)
-        int *lval;
+        PTR *lval;
 {
         if((lval[0] != 0) & (lval[1] == 0))
                 getmem(lval[0]);
@@ -1842,7 +1845,7 @@ getmem(sym)
 {
         if((sym[ident]!=pointer)&(sym[type]==cchar))
                 {ot("LDA ");
-                outstr(symname);
+                outstr(sym+name);
                 nl();
                 call("ccsxt");
                 }
@@ -1858,6 +1861,8 @@ getloc(sym)
         char *sym;
 {
         immed();
+        printf(" /* offset %d, sp %d */ ",(int)((sym[offset]&255)+ 
+                ((sym[offset+1]&255)<<8)), sp);
         outdec(((sym[offset]&255)+
                 ((sym[offset+1]&255)<<8))-
                 sp);
@@ -1882,8 +1887,8 @@ putmem(sym)
 putstk(typeobj)
         char typeobj;
 {       pop();
-        if(typeobj==cchar)call("ccpchar");
-                else call("ccpint");
+        if(typeobj==cchar){call("ccpchar");}
+                else {printf("xxx\n");call("ccpint");}
 }
 /* Fetch the specified object type indirect through the */
 /*      primary register into the prirary register      */
